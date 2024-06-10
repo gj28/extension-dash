@@ -1,0 +1,92 @@
+<div class="content" style="margin-top: 80px; padding: 20px">
+  <div class="example-container mt-2">
+    <!-- Flex container for filter and table -->
+    <div class="filter-and-table-container">
+      <!-- Role Filter Input -->
+      <div class="filter-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Filter by Role</mat-label>
+          <!-- Cast event target to HTMLInputElement -->
+          <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Role">
+        </mat-form-field>
+      </div>
+      <!-- Table Container -->
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <!-- Contact No Column -->
+          <ng-container matColumnDef="contact_no">
+            <th mat-header-cell *matHeaderCellDef> Contact No </th>
+            <td mat-cell *matCellDef="let element"> {{element.contact_no}} </td>
+          </ng-container>
+
+          <!-- Current Location Column -->
+          <ng-container matColumnDef="current_location">
+            <th mat-header-cell *matHeaderCellDef> Current Location </th>
+            <td mat-cell *matCellDef="let element"> {{element.current_location}} </td>
+          </ng-container>
+
+          <!-- Resume Link Column -->
+          <ng-container matColumnDef="resume_link">
+            <th mat-header-cell *matHeaderCellDef> Resume Link </th>
+            <td mat-cell *matCellDef="let element">
+              <button class="resume-button" (click)="openResume(element.resume_link)">Open Resume</button>
+            </td>
+          </ng-container>
+
+          <!-- Role Column -->
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+              <div [ngClass]="getStatusClass(element.status)" class="status-box">{{ getStatusText(element.status) }}</div>
+            </td>
+          </ng-container>
+
+          <!-- Created At Column -->
+          <ng-container matColumnDef="created_at">
+            <th mat-header-cell *matHeaderCellDef> Created At </th>
+            <td mat-cell *matCellDef="let element"> {{ element.created_at | date: 'MM-dd-yyyy' }} </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element" class="actions-cell">
+              <mat-select [(value)]="element.status" (selectionChange)="updateStatus($event.value, element.id)" class="mat-select">
+                <mat-option *ngFor="let status of statusOptions" [value]="status.value" class="mat-option">
+                  {{ status.viewValue }}
+                </mat-option>
+              </mat-select>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

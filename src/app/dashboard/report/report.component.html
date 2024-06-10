@@ -1,0 +1,137 @@
+<!-- <div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
+<div *ngIf="!dashService.pageLoading"> -->
+
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row pt-2 mb-1 mt-1" style="height: 5vh;">
+        <div class="col-12">
+          <div class="title">Applicant Report</div>
+        </div>
+      </div>
+      <div class="row pt-1">
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+          <mat-card>
+            <mat-card-content>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                    <div>Download Report</div>
+                    <mat-button-toggle-group name="fontStyle" class="button-group" aria-label="Font Style">
+                      <mat-button-toggle class="button-group" value="bold" (click)="downloadCSV()">CSV</mat-button-toggle>
+                      <mat-button-toggle class="button-group" value="italic" (click)="downloadExcel()">Excel</mat-button-toggle>
+                      <mat-button-toggle class="button-group" value="underline" (click)="downloadPDF()">Print</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-1">
+                    <div>Apply Filter</div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <form>
+                      <mat-form-field appearance="outline" class="input-field">
+                        <mat-label>Select Role</mat-label>
+                        <mat-select [formControl]="role">
+                          <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </form>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <mat-form-field class="date-picker input-field">
+                      <input matInput [matDatepicker]="startpicker" placeholder="Select start date" [formControl]="start_date" (dateChange)="updateStartDate($event)">
+                      <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+                      <mat-datepicker #startpicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <mat-form-field class="date-picker input-field">
+                      <input matInput [matDatepicker]="endpicker" placeholder="Select end date" [formControl]="end_date" (dateChange)="updateEndDate($event)">
+                      <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                      <mat-datepicker #endpicker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <button class="apply-button" mat-raised-button color="primary" (click)="applyFilter()">Apply Filter</button>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mb-2">
+          <mat-card>
+            <mat-card-content>
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-12">
+                    <div class="title">Applicant Data</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <table mat-table [dataSource]="dataSource" matSort class="custom-theme-table mat-table">
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="Name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                      </ng-container>
+
+                      <!-- Email Column -->
+                      <ng-container matColumnDef="Email">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+                      </ng-container>
+
+                      <!-- Contact No Column -->
+                      <ng-container matColumnDef="Contact No">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Contact No</th>
+                        <td mat-cell *matCellDef="let element">{{ element.contact_no }}</td>
+                      </ng-container>
+
+                      <!-- Current Location Column -->
+                      <ng-container matColumnDef="Current Location">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Location</th>
+                        <td mat-cell *matCellDef="let element">{{ element.current_location }}</td>
+                      </ng-container>
+
+                      <!-- Role Column -->
+                      <ng-container matColumnDef="Role">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+                        <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+                      </ng-container>
+
+                      <!-- Status Column -->
+<!-- statusLabels is a dictionary mapping status values to their corresponding labels -->
+<ng-container matColumnDef="Status">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+  <td mat-cell *matCellDef="let element">{{ statusLabels[element.status.toString()] }}</td>
+</ng-container>
+
+
+                      <!-- Date Column -->
+                      <ng-container matColumnDef="Date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                        <td mat-cell *matCellDef="let element">{{ element.date | date:'shortDate' }}</td>
+                      </ng-container>
+
+                      <!-- Time Column -->
+                      <ng-container matColumnDef="Time">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+                        <td mat-cell *matCellDef="let element">{{ element.time | date:'shortTime' }}</td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

@@ -1,0 +1,144 @@
+/* Container for filter and table */
+.filter-and-table-container {
+  display: flex;
+  flex-direction: column; /* Stack filter on top */
+}
+
+/* Filter Container Styles */
+.filter-container {
+  margin-top: auto;
+  margin-bottom: 5px; /* Space below the filter */
+  display: flex;
+  justify-content: flex-end; /* Align filter to the left */
+  align-items: center;
+}
+
+/* Table Container to handle scrolling */
+.table-container {
+  overflow-x: auto;
+}
+
+/* Adjust table styles to fit the new layout */
+table {
+  width: 100%; /* Ensure the table takes full width */
+}
+
+/* Table styles */
+.example-container {
+  height: 680px; /* Keep as it is */
+  width: 100%; /* Full width */
+  max-width: 100%; /* Ensure it doesn't exceed full width */
+  overflow: auto; /* Allow scrolling */
+}
+
+/* Rest of your styles */
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Status Box Styles */
+.status-box {
+  width: auto; /* Adapt to content width */
+  min-width: 60px; /* Minimum width to accommodate text */
+  max-width: 200px; /* Maximum width to prevent the box from becoming too wide */
+  height: auto; /* Adjust height to fit content */
+  padding: 4px 8px; /* Padding for more space */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid black; /* Border around the box */
+  text-align: center; /* Center text */
+  color: #fff; /* White text */
+  display: inline-block; /* Keep box inline */
+  word-wrap: break-word; /* Ensure long words break */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+
+/* Status Colors */
+.status-under-process {
+  background-color: orange;
+}
+
+.status-selected {
+  background-color: green;
+}
+
+.status-rejected {
+  background-color: red;
+}
+
+.status-interview {
+  background-color: blue;
+}
+
+/* Action Cell Styles */
+.actions-cell {
+  display: flex;
+  align-items: center;
+}
+
+/* Dropdown Select Styles */
+.mat-select {
+  min-width: 120px; /* Ensure a reasonable minimum width */
+  margin-right: 8px; /* Spacing between elements */
+}
+
+.mat-select-trigger {
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.mat-option {
+  padding: 8px 12px;
+}
+
+.mat-option.mat-selected {
+  background-color: #e0e0e0;
+}
+
+.mat-option:hover {
+  background-color: #f0f0f0;
+}
+
+.mat-select-arrow-wrapper {
+  color: #666;
+}
+
+/* Resume Button Styles */
+.resume-button {
+  padding: 6px 12px; /* Small padding for compact size */
+  background-color: #4CAF50; /* Green background */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  color: white; /* White text */
+  text-align: center; /* Center text */
+  text-decoration: none; /* No underline */
+  display: inline-block; /* Inline-block display */
+  font-size: 12px; /* Small font size */
+  cursor: pointer; /* Pointer cursor */
+  transition-duration: 0.4s; /* Smooth transition on hover */
+}
+
+.resume-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Blur Background Effect */
+.blur-background {
+  filter: blur(5px); /* Blur effect */
+  pointer-events: none; /* Disable interactions */
+}

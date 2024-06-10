@@ -1,0 +1,45 @@
+.content {
+    padding-top: 90px;
+    padding-bottom: 5vh;
+}
+
+.title{
+    padding-top: 0.5vh;
+    font-size: 1.5rem;
+    font-weight: 550;
+    padding-bottom: 1vh;
+}
+
+.chart{
+    height: 76vh;
+    z-index: 0;
+}
+
+.card2{
+    max-height: 72.7vh;
+}
+
+.title-2{
+    font-size: 1rem;
+    font-weight: 550;
+}
+
+.custom-theme-table th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 2;
+  }
+
+.on{
+    color: green;
+    font-weight: 550;
+}
+
+.off{
+    color: red;
+    font-weight: 550;
+}
+
+
+

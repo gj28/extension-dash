@@ -1,0 +1,39 @@
+/* Button styling */
+button.mat-button {
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Cancel button styling */
+button.cancel-button {
+    background-color: #f44336; /* Red background for Cancel button */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    border: none; /* Remove border */
+}
+
+button.cancel-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Save button styling */
+button.save-button {
+    background-color: #3f51b5; /* Blue background for Save button */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    border: none; /* Remove border */
+}
+
+button.save-button:hover {
+    background-color: #303f9f; /* Darker blue on hover */
+}
+
+/* Disabled Save button styling */
+button.save-button[disabled] {
+    background-color: #c7c7c7; /* Gray background when disabled */
+    color: #9e9e9e; /* Gray text when disabled */
+    cursor: not-allowed; /* Cursor change to indicate non-interactive */
+}
