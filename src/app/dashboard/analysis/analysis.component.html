@@ -1,3 +1,5 @@
+<div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
+<div *ngIf="!dashService.pageLoading">
 <div class="content" style="margin-top: 80px; padding: 20px">
   <div class="example-container mt-2">
     <!-- Flex container for filter and table -->
@@ -89,4 +91,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

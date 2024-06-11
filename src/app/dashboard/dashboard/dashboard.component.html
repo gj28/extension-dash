@@ -1,8 +1,6 @@
 <div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
 <div *ngIf="!dashService.pageLoading">
 <div class="content" style="margin-top: 80px;padding:20px">
-	<div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
-	<div *ngIf="!dashService.pageLoading">
   <div class="row d-flex justify-content-end">
     <button mat-flat-button color="primary" style="width: 100px;" (click)="openAddJob()">Add Job</button>
   </div>
@@ -58,3 +56,4 @@
   </div>
 </div>
 </div>
+

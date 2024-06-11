@@ -17,9 +17,12 @@
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
                     <div>Download Report</div>
                     <mat-button-toggle-group name="fontStyle" class="button-group" aria-label="Font Style">
-                      <mat-button-toggle class="button-group" value="bold" (click)="downloadCSV()">CSV</mat-button-toggle>
-                      <mat-button-toggle class="button-group" value="italic" (click)="downloadExcel()">Excel</mat-button-toggle>
-                      <mat-button-toggle class="button-group" value="underline" (click)="downloadPDF()">Print</mat-button-toggle>
+                      <mat-button-toggle class="button-group" value="bold"
+                        (click)="downloadCSV()">CSV</mat-button-toggle>
+                      <mat-button-toggle class="button-group" value="italic"
+                        (click)="downloadExcel()">Excel</mat-button-toggle>
+                      <mat-button-toggle class="button-group" value="underline"
+                        (click)="downloadPDF()">Print</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
 
@@ -39,20 +42,23 @@
 
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <mat-form-field class="date-picker input-field">
-                      <input matInput [matDatepicker]="startpicker" placeholder="Select start date" [formControl]="start_date" (dateChange)="updateStartDate($event)">
+                      <input matInput [matDatepicker]="startpicker" placeholder="Select start date"
+                        [formControl]="start_date" (dateChange)="updateStartDate($event)">
                       <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
                       <mat-datepicker #startpicker></mat-datepicker>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <mat-form-field class="date-picker input-field">
-                      <input matInput [matDatepicker]="endpicker" placeholder="Select end date" [formControl]="end_date" (dateChange)="updateEndDate($event)">
+                      <input matInput [matDatepicker]="endpicker" placeholder="Select end date" [formControl]="end_date"
+                        (dateChange)="updateEndDate($event)">
                       <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
                       <mat-datepicker #endpicker></mat-datepicker>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <button class="apply-button" mat-raised-button color="primary" (click)="applyFilter()">Apply Filter</button>
+                    <button class="apply-button" mat-raised-button color="primary" (click)="applyFilter()">Apply
+                      Filter</button>
                   </div>
                 </div>
               </div>
@@ -102,11 +108,11 @@
                       </ng-container>
 
                       <!-- Status Column -->
-<!-- statusLabels is a dictionary mapping status values to their corresponding labels -->
-<ng-container matColumnDef="Status">
-  <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-  <td mat-cell *matCellDef="let element">{{ statusLabels[element.status.toString()] }}</td>
-</ng-container>
+                      <!-- statusLabels is a dictionary mapping status values to their corresponding labels -->
+                      <ng-container matColumnDef="Status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                        <td mat-cell *matCellDef="let element">{{ statusLabels[element.status.toString()] }}</td>
+                      </ng-container>
 
 
                       <!-- Date Column -->

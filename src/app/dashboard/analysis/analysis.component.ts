@@ -43,7 +43,6 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dashService.isPageLoading(false);
   }
 
   getallapplicants() {
@@ -51,12 +50,15 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
       (response: Applicant[]) => {
         this.dataSource.data = response;
         console.log(response);
+        this.dashService.isPageLoading(false); // Set loading to false after fetching data
       },
       (error) => {
         console.error('Error fetching data', error);
+        this.dashService.isPageLoading(false); // Ensure loading is set to false on error too
       }
     );
   }
+  
   selectedColumn: string = 'role';
 
   
@@ -148,6 +150,7 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   }
 }
 
+
 export interface Applicant {
   id: number;
   name: string;
@@ -159,3 +162,4 @@ export interface Applicant {
   status: string;
   created_at: string;
 }
+

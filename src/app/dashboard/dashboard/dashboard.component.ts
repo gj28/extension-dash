@@ -82,13 +82,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       },
       (error) => {
         console.error('Error fetching data', error);
+        this.dashService.isPageLoading(false);
       }
     );
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dashService.isPageLoading(false);
   }
 
   openAddJob(): void {
