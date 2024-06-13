@@ -22,8 +22,8 @@ import { DashService } from '../dash.service';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit, OnDestroy {
-  roles: string[] = ['Software ', 'User', 'Guest']; // Example roles
-  displayedColumns: string[] = ['Name', 'Email', 'Contact No', 'Current Location', 'Role', 'Status', 'Date', 'Time'];
+  roles: string[] = ['Backend Developer', 'AI/ML Developer', 'Frontend Developer','AI/ML Developer', 'Full Stack Developer','Human Resources', 'Digital Marketing/Social Media','Finance/Accounting', 'Content Creation']; // Example roles
+  displayedColumns: string[] = ['Name', 'Email', 'Contact No', 'Current Location', 'Role', 'Status'];
   dataSource = new MatTableDataSource<Applicant>([]);
   panelOpenState = false;
   first_device!: string;
@@ -150,7 +150,7 @@ export class ReportComponent implements OnInit, OnDestroy {
 
   // Download PDF with status labels
   downloadPDF() {
-    const columns = ['ID', 'Name', 'Email', 'Contact Number', 'Current Location', 'Role', 'Status', 'Date', 'Time'];
+    const columns = ['ID', 'Name', 'Email', 'Contact Number', 'Current Location', 'Role', 'Status'];
     const rows = this.data.map(applicant => [
       applicant.id,
       applicant.name,

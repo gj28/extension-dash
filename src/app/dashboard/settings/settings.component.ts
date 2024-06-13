@@ -39,8 +39,9 @@ export class SettingsComponent implements OnInit{
   ) {}
 
   ngOnInit(): void{
+    this.fetchdevs();
+    this.userList();
     this.CompanyEmail = this.authService.getCompanyEmail() ?? '';
-    this.startInterval();
     this.dashService.isPageLoading(true);
   }
 
@@ -48,23 +49,11 @@ export class SettingsComponent implements OnInit{
     this.stopInterval();
   }
 
-  startInterval() {
-    this.intervalSubscription = interval(5000)
-      .pipe(take(Infinity))
-      .subscribe(() => {
-        this.fetchData();
-      });
-  }
 
   stopInterval() {
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();
     }
-  }
-
-  fetchData() {
-    this.fetchdevs();
-    this.userList();
   }
 
   userList() {
@@ -204,4 +193,3 @@ export class SettingsComponent implements OnInit{
   }
 
 }
-
