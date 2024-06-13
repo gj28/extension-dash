@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "orp-front": {
+    "anti-front": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "orp-front:build:production"
+              "browserTarget": "anti-front:build:production"
             },
             "development": {
-              "browserTarget": "orp-front:build:development"
+              "browserTarget": "anti-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "orp-front:build"
+            "browserTarget": "anti-front:build"
           }
         },
         "test": {

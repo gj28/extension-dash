@@ -7,30 +7,30 @@
 	<div class="row mt-4">
     	<div class="col-md-6 mb-2">
     		<mat-form-field appearance="outline" class="from-field">
-		        <mat-label>Device Name</mat-label>
+		        <mat-label>Name</mat-label>
 		        <input matInput [formControl]="DeviceName" [(ngModel)]="device.device_name" required>
-		        <mat-error *ngIf="DeviceName.invalid">Device Name is Required.</mat-error>
+		        <mat-error *ngIf="DeviceName.invalid">Name is Required.</mat-error>
 		     </mat-form-field>
     	</div>
     	<div class="col-md-6 mb-2">
     		<mat-form-field appearance="outline" class="from-field">
-		        <mat-label>Device Unique Id</mat-label>
+		        <mat-label>Unique Id</mat-label>
 		        <input matInput [formControl]="DeviceUID" [(ngModel)]="device.device_uid" required>
-		        <mat-error *ngIf="DeviceName.invalid">Device Unique ID is Required.</mat-error>
+		        <mat-error *ngIf="DeviceName.invalid">Unique ID is Required.</mat-error>
 		     </mat-form-field>
     	</div>
     	<div class="col-md-6 mb-2">
 	    	<mat-form-field appearance="outline" class="from-field">
-			    <mat-label>Device Longitude</mat-label>
+			    <mat-label>Role</mat-label>
 			    <input matInput [formControl]="DeviceLongitude" [(ngModel)]="device.device_longitude" required>
-			    <mat-error *ngIf="DeviceName.invalid">Device Longitude is Required.</mat-error>
+			    <mat-error *ngIf="DeviceName.invalid">User Role is Required.</mat-error>
 			</mat-form-field>
 		</div>
 		<div class="col-md-6 mb-2">
 	    	<mat-form-field appearance="outline" class="from-field">
-			    <mat-label>Device Latitude</mat-label>
+			    <mat-label>Business Area</mat-label>
 			    <input matInput [formControl]="DeviceLatitude" [(ngModel)]="device.device_latitude" required>
-			    <mat-error *ngIf="DeviceName.invalid">Device Latitude is Required.</mat-error>
+			    <mat-error *ngIf="DeviceName.invalid">Business Area is Required.</mat-error>
 			</mat-form-field>
 		</div>
     	<div class="col-md-6 justify-content-end d-flex mb-2">

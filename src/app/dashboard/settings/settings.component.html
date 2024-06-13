@@ -1,5 +1,5 @@
- <div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
- <div *ngIf="!dashService.pageLoading">
+ <!-- <div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
+ <div *ngIf="!dashService.pageLoading"> -->
   <div class="content">
       <div class="container-fluid">
           <div class="row pt-2">
@@ -8,7 +8,7 @@
                       <div class="card-statistic-3 p-4">
                           <div class="card-icon card-icon-large"><mat-icon>group</mat-icon></div>
                           <div class="mb-4">
-                              <h3 class="card-title mb-0" style="color: #000;">Total Applicant</h3>
+                              <h3 class="card-title mb-0" style="color: #000;">Total Admin's</h3>
                           </div>
                           <div class="row align-items-center mb-2 d-flex">
                               <div class="col-8">
@@ -28,7 +28,7 @@
                       <div class="card-statistic-3 p-4">
                           <div class="card-icon card-icon-large"><mat-icon>check_circle</mat-icon></div>
                           <div class="mb-4">
-                              <h3 class="card-title mb-0" style="color: #000;">Total Selected</h3>
+                              <h3 class="card-title mb-0" style="color: #000;">Team Size</h3>
                           </div>
                           <div class="row align-items-center mb-2 d-flex">
                               <div class="col-8">
@@ -46,7 +46,7 @@
           <div class="col-lg-6 col-md-12 col-sm-12 mb-3 mt-2">
               <mat-card>
                 <mat-card-header class="d-flex align-items-center justify-content-between mb-2">
-                  <div class="flex-grow-1 user-head">Applicant</div>
+                  <div class="flex-grow-1 user-head">Admin's</div>
                   <button mat-mini-fab style="color: #fff; background-color: #000;" (click)="openAddUserDialog()"><mat-icon>person_add</mat-icon></button>
                 </mat-card-header>
                 <mat-card-content>
@@ -55,17 +55,17 @@
                       <!-- Define your table columns -->
                       <ng-container matColumnDef="Name">
                         <th mat-header-cell *matHeaderCellDef>Name</th>
-                        <td mat-cell *matCellDef="let element">{{ element.FirstName }} {{ element.LastName }}<br>{{element.UserType}}</td>
+                        <td mat-cell *matCellDef="let element">{{ element.fullname}}<br>{{element.UserType}}</td>
                       </ng-container>
     
                       <ng-container matColumnDef="UserName">
-                        <th mat-header-cell *matHeaderCellDef>User Name</th>
-                        <td mat-cell *matCellDef="let element">{{ element.UserName }} <br> {{ element.ContactNo }}</td>
+                        <th mat-header-cell *matHeaderCellDef>Personal Email</th>
+                        <td mat-cell *matCellDef="let element">{{ element.personalemail }} <br> {{ element.ContactNo }}</td>
                       </ng-container>
     
                       <ng-container matColumnDef="Contact">
-                        <th mat-header-cell *matHeaderCellDef>Contact No.</th>
-                        <td mat-cell *matCellDef="let element">{{ element.Contact }}</td>
+                        <th mat-header-cell *matHeaderCellDef>User Type</th>
+                        <td mat-cell *matCellDef="let element">{{ element.usertype }}</td>
                       </ng-container>
     
                       <ng-container matColumnDef="Action">
@@ -98,18 +98,18 @@
                       <!-- Define your table columns -->
                       <ng-container matColumnDef="Device">
                         <th mat-header-cell *matHeaderCellDef>Name</th>
-                        <td mat-cell *matCellDef="let element">{{ element.device_name }}
+                        <td mat-cell *matCellDef="let element">{{ element.name }}
                         <br>{{ element.device_uid }}</td>
                       </ng-container>
     
                       <ng-container matColumnDef="Location">
-                        <th mat-header-cell *matHeaderCellDef>Location</th>
-                        <td mat-cell *matCellDef="let element">{{ element.Location }}</td>
+                        <th mat-header-cell *matHeaderCellDef>Role</th>
+                        <td mat-cell *matCellDef="let element">{{ element.role }}</td>
                       </ng-container>
     
                       <ng-container matColumnDef="Date of Isssue">
-                        <th mat-header-cell *matHeaderCellDef>Date Of Issue</th>
-                        <td mat-cell *matCellDef="let element">{{ element.DateOfIssue }}</td>
+                        <th mat-header-cell *matHeaderCellDef>Business Area</th>
+                        <td mat-cell *matCellDef="let element">{{ element.business_area }}</td>
                       </ng-container>
     
                       <ng-container matColumnDef="Action">
@@ -133,4 +133,4 @@
           </div>
       </div>
   </div>
-</div>
+<!-- </div> -->

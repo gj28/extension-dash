@@ -63,25 +63,31 @@ export class SettingsComponent implements OnInit{
   }
 
   fetchData() {
-    this.deviceList();
+    this.fetchdevs();
     this.userList();
   }
 
-  userList(){
-    if(this.CompanyEmail){
-      this.dashDataService.userDetails(this.CompanyEmail).subscribe(
-        (user) => {
-          this.dataSource = user.users;
-          this.totalUsers = this.dataSource.length;
+  userList() {
+    this.dashDataService.userDetails().subscribe(
+      (user) => {
+        if (user && Array.isArray(user)) {
+          this.dataSource = user;
+          this.totalUsers = this.dataSource.length; // Accessing length safely assuming dataSource is an array
           this.dashService.isPageLoading(false);
-        },
-        (error) => {
-          this.snackBar.open('Error while fetching Applicant Data!', 'Dismiss', {
+        } else {
+          console.error('Invalid data format returned from userDetails:', user);
+          this.snackBar.open('Error: Invalid data format returned!', 'Dismiss', {
             duration: 2000
           });
         }
-      );
-    }
+      },
+      (error) => {
+        console.error('Error fetching Applicant Data:', error);
+        this.snackBar.open('Error while fetching Applicant Data! Please check console for details.', 'Dismiss', {
+          duration: 2000
+        });
+      }
+    );
   }
 
   deleteUser(user: any) {
@@ -135,31 +141,29 @@ export class SettingsComponent implements OnInit{
       });
     }
   }
-
-  deviceList(){
-    if(this.CompanyEmail){
-      this.dashDataService.deviceDetails(this.CompanyEmail).subscribe(
-        (device) => {
-          this.dataSource2 = device.devices.map((d: any) => ({
-            DateOfIssue: this.datePipe.transform(d.issue_date, 'dd-MM-yyyy'),
-            device_name:d.device_name,
-            device_uid:d.device_uid,   
-            device_latitude:d.device_latitude,
-            device_longitude:d.device_longitute,
-            entry_id:d.entry_id,  
-            Location:d.Location
-          }));
-          this.totalDevices = this.dataSource2.length;
+  fetchdevs() {
+    this.dashDataService.fetchdevs().subscribe(
+      (devices) => {
+        if (devices && Array.isArray(devices)) {
+          this.dataSource2 = devices; // Correctly assign to dataSource2 for devices
+          this.totalDevices = this.dataSource2.length; // Correctly count the total number of devices
           this.dashService.isPageLoading(false);
-        },
-        (error) => {
-          this.snackBar.open('Error while fetching Job Data!', 'Dismiss', {
+        } else {
+          console.error('Invalid data format returned from fetchdevs:', devices);
+          this.snackBar.open('Error: Invalid data format returned!', 'Dismiss', {
             duration: 2000
           });
         }
-      );
-    }
+      },
+      (error) => {
+        console.error('Error fetching Devices Data:', error);
+        this.snackBar.open('Error while fetching Devices Data! Please check console for details.', 'Dismiss', {
+          duration: 2000
+        });
+      }
+    );
   }
+  
 
   openAddUserDialog(): void {
     const dialogConfig = new MatDialogConfig();

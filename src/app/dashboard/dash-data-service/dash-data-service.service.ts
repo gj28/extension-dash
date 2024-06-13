@@ -17,10 +17,12 @@ export class DashDataServiceService {
   private readonly API_URL = 'https://anti-backend.onrender.com';
   //private readonly API_URL = 'http://localhost:4000';
 
-  userDetails(CompanyEmail: string):Observable<any> {
-    return this.http.get(`${this.API_URL}/getUsersForUsers/${CompanyEmail}`);
+  userDetails():Observable<any> {
+    return this.http.get(`${this.API_URL}/fetchAllUsers`);
   }
-
+  fetchdevs():Observable<any> {
+    return this.http.get(`${this.API_URL}/fetchdevs`);
+  }
   deviceDetails(CompanyEmail: string):Observable<any> {
     return this.http.get(`${this.API_URL}/getDeviceForUsers/${CompanyEmail}`);
   }

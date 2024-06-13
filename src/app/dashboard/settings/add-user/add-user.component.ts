@@ -2,7 +2,7 @@ import { Component, Inject, HostListener, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../../../login/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashDataServiceService } from '../../dash-data-service/dash-data-service.service';
 
 @Component({
@@ -10,11 +10,12 @@ import { DashDataServiceService } from '../../dash-data-service/dash-data-servic
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit{
+export class AddUserComponent implements OnInit {
 
   FirstName = new FormControl('', [Validators.required]);
   LastName = new FormControl('', [Validators.required]);
   PersonalEmail = new FormControl('', [Validators.required, Validators.email]);
+  Password = new FormControl('', [Validators.required, Validators.minLength(6)]); // Add password field
   ContactNo = new FormControl('', [Validators.required]);
   UserType = new FormControl('', [Validators.required]);
   Location = new FormControl('', [Validators.required]);
@@ -24,6 +25,7 @@ export class AddUserComponent implements OnInit{
   onWindowResize() {
     this.adjustDialogWidth();
   }
+  
   private adjustDialogWidth() {
     const screenWidth = window.innerWidth;
     if (screenWidth <= 600) {
@@ -34,16 +36,16 @@ export class AddUserComponent implements OnInit{
       this.dialogRef.updateSize('400px', '');
     }
   }
+  
   constructor(
     private DashDataService: DashDataServiceService,
     private authService: AuthService,
     public snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ){
-  }
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
   getPersonalEmailErrorMessage() {
@@ -53,42 +55,41 @@ export class AddUserComponent implements OnInit{
     return this.PersonalEmail.hasError('email') ? 'Not a valid email' : '';
   }
 
+  getPasswordErrorMessage() {
+    if (this.Password.hasError('required')) {
+      return 'Password is Required';
+    }
+    return this.Password.hasError('minlength') ? 'Password must be at least 6 characters long' : '';
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  onSave(){
-    if(this.FirstName.valid && this.LastName.valid && this.PersonalEmail.valid && this.ContactNo.valid && this.UserType.valid){
+  onSave() {
+    if (this.FirstName.valid && this.LastName.valid && this.PersonalEmail.valid && this.Password.valid && this.ContactNo.valid && this.UserType.valid && this.Location.valid) {
       
-      const CEmail=sessionStorage.getItem('companyEmail');
-      const CName=sessionStorage.getItem('companyName');
-
-      const userData={
-        userName:this.PersonalEmail.value, 
-        password:this.PersonalEmail.value, 
-        firstName:this.FirstName.value, 
-        lastName:this.LastName.value, 
-        contactNo:this.ContactNo.value, 
-        userType:this.UserType.value, 
-        location:this.Location.value,
-        companyEmail:CEmail,
-        companyName:CName,
-      }
+      // Construct the full name from first and last name
+      const fullName = `${this.FirstName.value} ${this.LastName.value}`;
+      
+      // Create the user data object to send to the backend
+      const userData = {
+        fullName: fullName,
+        personalEmail: this.PersonalEmail.value,
+        password: this.Password.value
+      };
 
       this.DashDataService.addUser(userData).subscribe(
-          () => {
+        () => {
           this.snackBar.open('User Added successfully!', 'Dismiss', {
             duration: 2000
           });
           this.dialogRef.close();
         },
         (error) => {
-          this.snackBar.open('Failed. Please try again.',
-            'Dismiss',
-            { duration: 2000 }
-          );
+          this.snackBar.open('Failed. Please try again.', 'Dismiss', { duration: 2000 });
         }
       );
-    }    
+    }
   }
 }
