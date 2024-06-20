@@ -14,7 +14,7 @@ export class DashDataServiceService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  private readonly API_URL = 'https://anti-backend.onrender.com';
+  private readonly API_URL = 'http://ec2-13-201-30-216.ap-south-1.compute.amazonaws.com:3000';
   //private readonly API_URL = 'http://localhost:4000';
 
   userDetails():Observable<any> {

@@ -10,7 +10,7 @@ export class AuthService {
   token!: string | null;
 
   constructor(private http: HttpClient, private router: Router) {}
-  private readonly API_URL = 'https://anti-backend.onrender.com';
+  private readonly API_URL = 'http://ec2-13-201-30-216.ap-south-1.compute.amazonaws.com:3000';
 
   updatePersonalDetails(userId: string, personalData: any): Observable<any> {
     return this.http.put(`${this.API_URL}/users/${userId}`, personalData);
