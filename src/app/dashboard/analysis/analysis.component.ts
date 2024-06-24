@@ -18,8 +18,9 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   
   dataSource = new MatTableDataSource<Applicant>([]);
   statusOptions = [
-    { value: '0', viewValue: 'Process' },
+    { value: '0', viewValue: 'Under Process' },
     { value: '2', viewValue: 'HR Interview' },
+    { value: '4', viewValue: 'No Response' },
     { value: '3', viewValue: 'Technical Interview' },
     { value: '1', viewValue: 'Selected' },
     { value: '-1', viewValue: 'Rejected' }
@@ -100,6 +101,8 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
         return 'status-interview';
       case 3:
         return 'status-technical-interview';
+      case 4:
+        return 'status-no-response';
       case -1:
         return 'status-rejected';
       default:
@@ -117,6 +120,8 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
         return 'HR_Interview';
       case 3:
         return 'Tech_Interview';
+      case 4:
+        return 'No_Response';
       case -1:
         return 'Rejected';
       default:
@@ -134,7 +139,7 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
           if (updatedApplicant) {
             updatedApplicant.status = newStatus;
           }
-          this.getallapplicants()
+          this.getallapplicants();
           this.dataSource._updateChangeSubscription(); // Refresh the table data
         },
         (error) => {
