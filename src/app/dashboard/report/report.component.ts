@@ -36,7 +36,8 @@ export class ReportComponent implements OnInit, OnDestroy {
   statusLabels: { [key: string]: string } = {
     '0': 'Under Process',
     '1': 'Selected',
-    '2': 'Interview',
+    '2': 'Hr Interview',
+    '3': 'Technical Interview',
     '-1': 'Rejected'
   };
 

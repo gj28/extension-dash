@@ -18,9 +18,10 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   
   dataSource = new MatTableDataSource<Applicant>([]);
   statusOptions = [
-    { value: '0', viewValue: 'Under Process' },
+    { value: '0', viewValue: 'Process' },
+    { value: '2', viewValue: 'HR Interview' },
+    { value: '3', viewValue: 'Technical Interview' },
     { value: '1', viewValue: 'Selected' },
-    { value: '2', viewValue: 'Interview' },
     { value: '-1', viewValue: 'Rejected' }
   ];
 
@@ -58,10 +59,6 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  
-  selectedColumn: string = 'role';
-
-  
 
   openResume(resumeLink: string) {
     const contentContainer = document.querySelector('.content');
@@ -101,6 +98,8 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
         return 'status-selected';
       case 2:
         return 'status-interview';
+      case 3:
+        return 'status-technical-interview';
       case -1:
         return 'status-rejected';
       default:
@@ -111,11 +110,13 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   getStatusText(status: number): string {
     switch (status) {
       case 0:
-        return 'Review';
+        return 'Process';
       case 1:
         return 'Selected';
       case 2:
-        return 'Interview';
+        return 'HR_Interview';
+      case 3:
+        return 'Tech_Interview';
       case -1:
         return 'Rejected';
       default:
@@ -150,7 +151,6 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   }
 }
 
-
 export interface Applicant {
   id: number;
   name: string;
@@ -162,4 +162,3 @@ export interface Applicant {
   status: string;
   created_at: string;
 }
-

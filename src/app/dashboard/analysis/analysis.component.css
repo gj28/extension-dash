@@ -9,7 +9,7 @@
   margin-top: auto;
   margin-bottom: 5px; /* Space below the filter */
   display: flex;
-  justify-content: flex-end; /* Align filter to the left */
+  justify-content: flex-end; /* Align filter to the right */
   align-items: center;
 }
 
@@ -49,6 +49,17 @@ th.mat-column-position, td.mat-column-position {
   border-right: 1px solid #e0e0e0;
 }
 
+/* Created At Column Styles */
+.mat-column-created_at {
+  white-space: nowrap; /* Prevent text from wrapping */
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center; /* Center align the text */
+  max-width: 150px; /* Ensure it doesn't get too wide */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
 /* Status Box Styles */
 .status-box {
   width: auto; /* Adapt to content width */
@@ -65,7 +76,6 @@ th.mat-column-position, td.mat-column-position {
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
-
 /* Status Colors */
 .status-under-process {
   background-color: orange;
@@ -81,6 +91,10 @@ th.mat-column-position, td.mat-column-position {
 
 .status-interview {
   background-color: blue;
+}
+
+.status-technical-interview {
+  background-color: purple;
 }
 
 /* Action Cell Styles */
@@ -128,7 +142,7 @@ th.mat-column-position, td.mat-column-position {
   text-align: center; /* Center text */
   text-decoration: none; /* No underline */
   display: inline-block; /* Inline-block display */
-  font-size: 12px; /* Small font size */
+  font-size: 13px; /* Small font size */
   cursor: pointer; /* Pointer cursor */
   transition-duration: 0.4s; /* Smooth transition on hover */
 }
