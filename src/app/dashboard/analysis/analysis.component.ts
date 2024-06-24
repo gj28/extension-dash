@@ -37,9 +37,11 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
     this.dashService.isPageLoading(true);
     this.getallapplicants();
 
-    // Customize the filter predicate
+    // Customize the filter predicate to filter by both name and role
     this.dataSource.filterPredicate = (data: Applicant, filter: string) => {
-      return data.role.trim().toLowerCase().includes(filter);
+      const lowerCaseFilter = filter.toLowerCase();
+      return data.role.toLowerCase().includes(lowerCaseFilter) ||
+             data.name.toLowerCase().includes(lowerCaseFilter);
     };
   }
 
@@ -151,9 +153,14 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
     }
   }
 
-  applyFilter(filterValue: string) {
+  applyRoleFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  
+  applyNameFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
 }
 
 export interface Applicant {

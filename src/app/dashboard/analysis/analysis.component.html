@@ -5,12 +5,18 @@
       <!-- Flex container for filter and table -->
       <div class="filter-and-table-container">
         <!-- Role Filter Input -->
-        <div class="filter-container">
-          <mat-form-field appearance="outline">
-            <mat-label>Filter by Role</mat-label>
-            <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Role">
-          </mat-form-field>
-        </div>
+<!-- Role Filter Input -->
+<div class="filter-container">
+  <mat-form-field appearance="outline" style="margin-left: 10px;">
+    <mat-label>Filter by Name</mat-label>
+    <input matInput (keyup)="applyNameFilter($any($event.target).value)" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Filter by Role</mat-label>
+    <input matInput (keyup)="applyRoleFilter($any($event.target).value)" placeholder="Role">
+  </mat-form-field>
+</div>
+
         <!-- Table Container -->
         <div class="table-container">
           <table mat-table [dataSource]="dataSource">
