@@ -31,4 +31,10 @@ export const navbarData: INavbarData[] = [
         label: 'Report',
         UserType:'Admin',
     },
+    {
+        routeLink: 'email',
+        icon: 'cloud',
+        label: 'Email',
+        UserType:'Admin',
+    },
 ];

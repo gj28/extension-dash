@@ -52,6 +52,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { PageLoadingComponent } from './dash-loading/page-loading/page-loading.component';
 import { AddJobsComponent } from './add-jobs/add-jobs.component';
 import { EditJobDialogComponent } from '../dashboard/edit-job/edit-job.component';
+import { EmailExtractorComponent } from './email-extractor/email-extractor.component';
 
 
 
@@ -74,7 +75,8 @@ import { EditJobDialogComponent } from '../dashboard/edit-job/edit-job.component
     ProfileComponent,
     PageLoadingComponent,
     AddJobsComponent,
-    EditJobDialogComponent 
+    EditJobDialogComponent,
+    EmailExtractorComponent 
   ],
   imports: [
     CommonModule,
