@@ -5,17 +5,16 @@
       <!-- Flex container for filter and table -->
       <div class="filter-and-table-container">
         <!-- Role Filter Input -->
-<!-- Role Filter Input -->
-<div class="filter-container">
-  <mat-form-field appearance="outline" style="margin-left: 10px;">
-    <mat-label>Filter by Name</mat-label>
-    <input matInput (keyup)="applyNameFilter($any($event.target).value)" placeholder="Name">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Filter by Role</mat-label>
-    <input matInput (keyup)="applyRoleFilter($any($event.target).value)" placeholder="Role">
-  </mat-form-field>
-</div>
+        <div class="filter-container">
+          <mat-form-field appearance="outline" style="margin-left: 10px;">
+            <mat-label>Filter by Name</mat-label>
+            <input matInput (keyup)="applyNameFilter($any($event.target).value)" placeholder="Name">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Filter by Role</mat-label>
+            <input matInput (keyup)="applyRoleFilter($any($event.target).value)" placeholder="Role">
+          </mat-form-field>
+        </div>
 
         <!-- Table Container -->
         <div class="table-container">
@@ -54,7 +53,7 @@
             <ng-container matColumnDef="resume_link">
               <th mat-header-cell *matHeaderCellDef> Resume Link </th>
               <td mat-cell *matCellDef="let element">
-                <button class="resume-button" (click)="openResume(element.resume_link)">Resume</button>
+                <button mat-raised-button color="primary" (click)="openResume(element.resume_link)"> Resume</button>
               </td>
             </ng-container>
 
@@ -68,33 +67,45 @@
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef> Status </th>
               <td mat-cell *matCellDef="let element">
-                <div [ngClass]="getStatusClass(element.status)" class="status-box">{{ getStatusText(element.status) }}</div>
+                <div class="status-container" [ngClass]="getStatusClass(element.status)">
+                  <span>{{ getStatusText(element.status) }}</span>
+                </div>
               </td>
             </ng-container>
 
             <!-- Created At Column -->
             <ng-container matColumnDef="created_at">
-              <th mat-header-cell *matHeaderCellDef class="mat-column-created_at"> Created At </th>
-              <td mat-cell *matCellDef="let element" class="mat-column-created_at"> {{element.created_at | date:'medium'}} </td>
+              <th mat-header-cell *matHeaderCellDef> Created At </th>
+              <td mat-cell *matCellDef="let element"> {{element.created_at | date: 'short'}} </td>
             </ng-container>
 
             <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef> Actions </th>
-              <td mat-cell *matCellDef="let element" class="actions-cell">
-                <mat-select [value]="element.status" (selectionChange)="updateStatus($event.value, element.id)" class="mat-select">
-                  <mat-option *ngFor="let status of statusOptions" [value]="status.value" class="mat-option">
-                    {{ status.viewValue }}
-                  </mat-option>
-                </mat-select>
-              </td>
-            </ng-container>
+<ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef> Actions </th>
+  <td mat-cell *matCellDef="let element">
+    <mat-form-field>
+      <mat-label>Update Status</mat-label>
+      <mat-select 
+        [value]="element.status" 
+        (selectionChange)="updateStatus($any($event).value, element.id)"
+        class="status-select">
+        <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+          {{ option.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </td>
+</ng-container>
 
-            <!-- Table Headers and Rows -->
+
+            <!-- Table Header and Row Definitions -->
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
         </div>
+        
+        <!-- Paginator -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
     </div>
   </div>

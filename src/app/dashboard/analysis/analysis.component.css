@@ -1,10 +1,9 @@
-/* Container for filter and table */
+/* General container styles for layout */
 .filter-and-table-container {
   display: flex;
   flex-direction: column; /* Stack filter on top */
 }
 
-/* Filter Container Styles */
 .filter-container {
   margin-top: auto;
   margin-bottom: 5px; /* Space below the filter */
@@ -13,17 +12,14 @@
   align-items: center;
 }
 
-/* Table Container to handle scrolling */
 .table-container {
   overflow-x: auto;
 }
 
-/* Adjust table styles to fit the new layout */
 table {
   width: 100%; /* Ensure the table takes full width */
 }
 
-/* Table styles */
 .example-container {
   height: 680px; /* Keep as it is */
   width: 100%; /* Full width */
@@ -31,7 +27,7 @@ table {
   overflow: auto; /* Allow scrolling */
 }
 
-/* Rest of your styles */
+/* Specific column and cell styles */
 td.mat-column-star {
   width: 20px;
   padding-right: 8px;
@@ -49,7 +45,6 @@ th.mat-column-position, td.mat-column-position {
   border-right: 1px solid #e0e0e0;
 }
 
-/* Created At Column Styles */
 .mat-column-created_at {
   white-space: nowrap; /* Prevent text from wrapping */
   padding-left: 8px;
@@ -60,7 +55,7 @@ th.mat-column-position, td.mat-column-position {
   text-overflow: ellipsis; /* Add ellipsis for overflow text */
 }
 
-/* Status Box Styles */
+/* Status box styles */
 .status-box {
   width: auto; /* Adapt to content width */
   min-width: 60px; /* Minimum width to accommodate text */
@@ -76,67 +71,111 @@ th.mat-column-position, td.mat-column-position {
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
-/* Status Colors */
+.status-container {
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Status color coding */
+.status-screening {
+  background-color: #6c757d; /* Moderate grayish blue */
+  color: #fff; /* White text */
+}
+
+.status-hr-interview {
+  background-color: #cff4fc; /* Light blue */
+  color: #055160; /* Dark blue */
+}
+
 .status-under-process {
-  background-color: orange;
-}
-
-.status-selected {
-  background-color: green;
-}
-
-.status-rejected {
-  background-color: red;
-}
-
-.status-interview {
-  background-color: blue;
-}
-
-.status-technical-interview {
-  background-color: purple;
+  background-color: #fff3cd; /* Light yellow */
+  color: #664d03; /* Dark yellow */
 }
 
 .status-no-response {
-  background-color: grey;
+  background-color: #f8d7da; /* Light pink */
+  color: #842029; /* Dark red */
 }
 
-/* Action Cell Styles */
+.status-backup {
+  background-color: #cfe2ff; /* Light blue */
+  color: #084298; /* Dark blue */
+}
+
+.status-technical-interview {
+  background-color: #6f42c1; /* Distinct purple */
+  color: #fff; /* White text */
+}
+
+.status-selected {
+  background-color: #198754; /* Dark green */
+  color: #fff; /* White text */
+}
+
+.status-rejected {
+  background-color: #f8d7da; /* Light pink */
+  color: #842029; /* Dark red */
+}
+
+/* Action cell and button styles */
 .actions-cell {
   display: flex;
   align-items: center;
+  margin-top: 31px;
 }
 
-/* Dropdown Select Styles */
-.mat-select {
-  min-width: 120px; /* Ensure a reasonable minimum width */
-  margin-right: 8px; /* Spacing between elements */
-}
-
-.mat-select-trigger {
-  border-radius: 40px;
-  background-color: #f0f0f0;
-  padding: 6px 12px;
+/* Adjust the select trigger to match the increased width and center the triangle */
+::ng-deep .mat-select-trigger {
+  min-width: 170px; /* Ensure a reasonable minimum width */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  display: flex; /* Use flex layout */
+  align-items: center; /* Center-align items vertically */
+  justify-content: center; /* Center-align items horizontally */
+  position: relative; /* Relative positioning for inner elements */
+  padding: 6px 18px; /* Adjust padding as needed */
   cursor: pointer;
 }
 
-.mat-option {
-  padding: 8px 12px;
+/* Center the arrow within the select trigger */
+::ng-deep .mat-select-arrow-wrapper {
+  position: absolute; /* Absolute position within the trigger */
+  right: 50%; /* Position to the middle */
+  transform: translateX(50%); /* Adjust to center */
+  display: flex; /* Flex layout */
+  align-items: center; /* Center-align items vertically */
+  pointer-events: none; /* Prevent interactions */
+  top: 50%; /* Center vertically */
+  transform: translate(-50%, -50%); /* Center horizontally and vertically */
 }
 
-.mat-option.mat-selected {
-  background-color: #e0e0e0;
+/* Optional: Fine-tune the arrow within the wrapper */
+::ng-deep .mat-select-arrow {
+  width: 24px; /* Adjust width as needed */
+  height: 24px; /* Adjust height as needed */
 }
 
-.mat-option:hover {
-  background-color: #f0f0f0;
+/* Ensure the mat-select panel width */
+::ng-deep .mat-select-panel {
+  min-width: 300px !important; /* Set a minimum width for the dropdown panel */
+  max-width: 400px !important; /* Set a maximum width to control the panel's size */
 }
 
-.mat-select-arrow-wrapper {
-  color: #666;
+/* Ensure mat-options are wide and use flex for layout */
+::ng-deep .mat-option {
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  min-width: 250px; /* Set a minimum width for each option */
+  max-width: 350px; /* Set a maximum width for each option */
+  display: flex; /* Use flex layout */
+  align-items: center; /* Center-align items vertically */
+  justify-content: flex-start; /* Align text to the left */
 }
 
-/* Resume Button Styles */
+/* Resume button styles */
 .resume-button {
   padding: 6px 12px; /* Small padding for compact size */
   background-color: #4CAF50; /* Green background */
@@ -155,7 +194,7 @@ th.mat-column-position, td.mat-column-position {
   background-color: #45a049; /* Darker green on hover */
 }
 
-/* Blur Background Effect */
+/* Blur background effect */
 .blur-background {
   filter: blur(5px); /* Blur effect */
   pointer-events: none; /* Disable interactions */

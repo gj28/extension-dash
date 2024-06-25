@@ -15,14 +15,16 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
     'current_location', 'resume_link', 'role', 
     'status', 'created_at', 'actions'
   ];
-  
+
   dataSource = new MatTableDataSource<Applicant>([]);
   statusOptions = [
-    { value: '0', viewValue: 'Under Process' },
-    { value: '2', viewValue: 'HR Interview' },
-    { value: '4', viewValue: 'No Response' },
-    { value: '3', viewValue: 'Technical Interview' },
-    { value: '1', viewValue: 'Selected' },
+    { value: '0', viewValue: 'Screening' },
+    { value: '1', viewValue: 'HR Interview' },
+    { value: '2', viewValue: 'Under Process' },
+    { value: '3', viewValue: 'No Response' },
+    { value: '4', viewValue: 'Backup' },
+    { value: '5', viewValue: 'Technical Interview' },
+    { value: '6', viewValue: 'Selected' },
     { value: '-1', viewValue: 'Rejected' }
   ];
 
@@ -96,15 +98,19 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   getStatusClass(status: number): string {
     switch (status) {
       case 0:
-        return 'status-under-process';
+        return 'status-screening';
       case 1:
-        return 'status-selected';
+        return 'status-hr-interview';
       case 2:
-        return 'status-interview';
+        return 'status-under-process';
       case 3:
-        return 'status-technical-interview';
-      case 4:
         return 'status-no-response';
+      case 4:
+        return 'status-backup';
+      case 5:
+        return 'status-technical-interview';
+      case 6:
+        return 'status-selected';
       case -1:
         return 'status-rejected';
       default:
@@ -115,15 +121,19 @@ export class AnalysisComponent implements OnInit, AfterViewInit {
   getStatusText(status: number): string {
     switch (status) {
       case 0:
-        return 'Process';
+        return 'Screening';
       case 1:
-        return 'Selected';
-      case 2:
         return 'HR_Interview';
+      case 2:
+        return 'Under_Process';
       case 3:
-        return 'Tech_Interview';
-      case 4:
         return 'No_Response';
+      case 4:
+        return 'Backup';
+      case 5:
+        return 'Technical_Interview';
+      case 6:
+        return 'Selected';
       case -1:
         return 'Rejected';
       default:
