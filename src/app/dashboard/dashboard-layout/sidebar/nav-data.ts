@@ -33,7 +33,7 @@ export const navbarData: INavbarData[] = [
     },
     {
         routeLink: 'email',
-        icon: 'cloud',
+        icon: 'flip_to_front',
         label: 'Email',
         UserType:'Admin',
     },
