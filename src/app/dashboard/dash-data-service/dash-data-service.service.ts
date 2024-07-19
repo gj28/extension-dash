@@ -14,8 +14,8 @@ export class DashDataServiceService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  private readonly API_URL = 'https://anti-backend.onrender.com';
-  //private readonly API_URL = 'http://localhost:4000';
+  // private readonly API_URL = 'https://anti-backend.onrender.com';
+  private readonly API_URL = 'https://webextension-8p1b.onrender.com'; 
 
   userDetails():Observable<any> {
     return this.http.get(`${this.API_URL}/fetchAllUsers`);

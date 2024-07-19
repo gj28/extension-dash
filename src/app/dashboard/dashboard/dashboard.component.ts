@@ -7,155 +7,73 @@ import { DashDataServiceService } from '../dash-data-service/dash-data-service.s
 import { AddJobsComponent } from '../add-jobs/add-jobs.component';
 import { EditJobDialogComponent } from '../edit-job/edit-job.component'; // Import the new dialog component
 import Swal from 'sweetalert2';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['id', 'location', 'role', 'business_area', 'created_at', 'actions'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selectedApplicantId: any;
-  selectedStatus: string = ''; 
+export class DashboardComponent implements OnInit {
+  loadStatus: number = 2;
+  cpuUsage: number = 0;
+  cpuCores: number = 1;
+  memoryUsage: number = 18.1;
+  memoryUsed: number = 178;
+  memoryTotal: number = 981;
+  diskUsage: number = 16;
+  diskUsed: number = 5.7;
+  diskTotal: number = 40;
+  siteCount: number = 0;
+  ftpCount: number = 0;
+  dbCount: number = 0;
+  securityIssues: number = 2;
 
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator; 
-  data: any;
+  constructor() { }
 
-  constructor(private dashDataService: DashDataServiceService, public dashService: DashService, public service: DashDataServiceService, public dialog: MatDialog) {} 
-
-  ngOnInit() {  
-    this.dashService.isPageLoading(true);
-    this.getallapplicants();
+  ngOnInit() {
+    this.createTrafficChart();
   }
 
-  updateStatus(newStatus: string, id: any) {
-    if (this.selectedStatus !== null) {
-      const ApplicationStatus = { status: this.selectedStatus };
-      this.service.updateApplicantStatus(ApplicationStatus, id).subscribe(
-        (response) => {
-          console.log('Status updated successfully:', response);
-          this.getallapplicants();
-        },
-        (error) => {
-          console.error('Error updating status:', error);
-        }
-      );
-    } else {
-      console.error('Status is required.');
-    }
+  update() {
+    // Logic to update the data
   }
 
-  deleteUser(id: any) {
-    if (id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.dashDataService.deleteJob(id).subscribe(
-            () => {
-              Swal.fire('Deleted!', 'Job has been deleted.', 'success');
-              this.getallapplicants(); // Refresh the table after deletion
-            },
-            (error) => {
-              Swal.fire('Error!', 'Failed to delete job. Please try again.', 'error');
-            }
-          );
-        }
-      });
-    }
+  reset() {
+    // Logic to reset the data
   }
-  
-  getallapplicants(){
-    this.service.getAllJobs().subscribe(
-      (response) => {
-        this.data = response;
-        this.dataSource.data = response; 
-        this.dashService.isPageLoading(false);
-        console.log(this.data);
+
+  createTrafficChart() {
+    const ctx = document.getElementById('trafficChart') as HTMLCanvasElement;
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['14:15:27', '14:15:30', '14:15:34', '14:15:38', '14:15:42', '14:15:46', '14:15:50'],
+        datasets: [{
+          label: 'Traffic',
+          data: [0.42, 0.32, 0.50, 0.20, 0.25, 0.44, 0.66],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
       },
-      (error) => {
-        console.error('Error fetching data', error);
-        this.dashService.isPageLoading(false);
-      }
-    );
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  openAddJob(): void {
-    const dialogRef = this.dialog.open(AddJobsComponent, {
-      width: '250px',
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        Swal.fire({
-          title: 'Confirm Addition',
-          text: 'Are you sure you want to add this job?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, add it!'
-        }).then((confirmation) => {
-          if (confirmation.isConfirmed) {
-            // If confirmed, log the form data and refresh the table
-            console.log('Form Data:', result);
-            this.getallapplicants();
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
           }
-        });
-      }
-    });
-  }
-  
-  openEditDialog(element: PeriodicElement): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '500px';
-    dialogConfig.data = { job: element }; // Pass the selected job data
-
-    const dialogRef = this.dialog.open(EditJobDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        Swal.fire({
-          title: 'Confirm Update',
-          text: 'Are you sure you want to save these changes?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, update it!'
-        }).then((confirmation) => {
-          if (confirmation.isConfirmed) {
-            this.updateJob(result, element.id); // Call updateJob with new data and job ID
-          }
-        });
+        }
       }
     });
   }
 
-  updateJob(updatedJob: any, id: number) {
-    this.service.updateJob(updatedJob, id).subscribe(
-      (response) => {
-        Swal.fire('Updated!', 'Job has been updated successfully.', 'success');
-        this.getallapplicants(); // Refresh the data
-      },
-      (error) => {
-        Swal.fire('Error!', 'Failed to update job. Please try again.', 'error');
-        console.error('Error updating job:', error);
-      }
-    );
+  getCircleStyle(value: number): string {
+    const color = value > 75 ? '#ff6b6b' : value > 50 ? '#ffa502' : '#2ed573';
+    return `conic-gradient(${color} ${value}%, #ddd ${value}%)`;
   }
 }
+
 
 export interface PeriodicElement {
   id: number;

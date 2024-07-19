@@ -1,59 +1,85 @@
-<div *ngIf="dashService.pageLoading"><app-page-loading></app-page-loading></div>
-<div *ngIf="!dashService.pageLoading">
-<div class="content" style="margin-top: 80px;padding:20px">
-  <div class="row d-flex justify-content-end">
-    <button mat-flat-button color="primary" style="width: 100px;" (click)="openAddJob()">Add Job</button>
+<div class="container">
+  <div class="header">
+    <div class="info">
+      <span>System: Ubuntu 20.04.3 LTS (Py3.7.9)</span>
+      <span>Time of running: 0 Day(s)</span>
+    </div>
+    <div class="actions">
+      <button (click)="update()">Update</button>
+      <button (click)="reset()">Reset</button>
+    </div>
   </div>
-  <div class="example-container mt-2">
-    <table mat-table [dataSource]="dataSource">
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
+  <div class="stats">
+    <div class="stat">
+      <h3>Load status</h3>
+      <div class="progress-circle" [style.background]="getCircleStyle(loadStatus)">
+        <span>{{ loadStatus }}%</span>
+      </div>
+      <p>Running smoothly</p>
+    </div>
+    <div class="stat">
+      <h3>CPU usage</h3>
+      <div class="progress-circle" [style.background]="getCircleStyle(cpuUsage)">
+        <span>{{ cpuUsage }}%</span>
+      </div>
+      <p>{{ cpuCores }} Core(s)</p>
+    </div>
+    <div class="stat">
+      <h3>RAM usage</h3>
+      <div class="progress-circle" [style.background]="getCircleStyle(memoryUsage)">
+        <span>{{ memoryUsage }}%</span>
+      </div>
+      <p>{{ memoryUsed }}/{{ memoryTotal }}(MB)</p>
+    </div>
+    <div class="stat">
+      <h3>Disk usage</h3>
+      <div class="progress-circle" [style.background]="getCircleStyle(diskUsage)">
+        <span>{{ diskUsage }}%</span>
+      </div>
+      <p>{{ diskUsed }}GB/{{ diskTotal }}GB</p>
+    </div>
+  </div>
 
-      <!-- Location Column -->
-      <ng-container matColumnDef="location">
-        <th mat-header-cell *matHeaderCellDef> Location </th>
-        <td mat-cell *matCellDef="let element"> {{element.location}} </td>
-      </ng-container>
+  <div class="overview">
+    <h3>Overview</h3>
+    <div class="overview-item">Site: {{ siteCount }}</div>
+    <div class="overview-item">FTP: {{ ftpCount }}</div>
+    <div class="overview-item">DB: {{ dbCount }}</div>
+    <div class="overview-item">Security: {{ securityIssues }}</div>
+  </div>
 
-      <!-- Role Column -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Role </th>
-        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-      </ng-container>
+  <div class="main-content">
+    <div class="software">
+      <h3>Software</h3>
+      <div class="software-item">
+        <img src="path/to/icon.png" alt="Linux Icon" />
+        Linux 7.8.2003
+      </div>
+      <div class="software-item">
+        <img src="path/to/icon.png" alt="MySQL Icon" />
+        MySQL 5.7
+      </div>
+      <div class="software-item">
+        <img src="path/to/icon.png" alt="PHP Icon" />
+        PHP 7.3
+      </div>
+      <div class="software-item">
+        <img src="path/to/icon.png" alt="FTP Icon" />
+        FTP 1.0
+      </div>
+      <div class="software-item">
+        <img src="path/to/icon.png" alt="Redis Icon" />
+        Redis 3.2.10
+      </div>
+    </div>
 
-      <!-- Business Area Column -->
-      <ng-container matColumnDef="business_area">
-        <th mat-header-cell *matHeaderCellDef> Business Area </th>
-        <td mat-cell *matCellDef="let element"> {{element.business_area}} </td>
-      </ng-container>
-
-      <!-- Created At Column -->
-      <ng-container matColumnDef="created_at">
-        <th mat-header-cell *matHeaderCellDef> Created At </th>
-        <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
-      </ng-container>
-
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="openEditDialog(element)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="deleteUser(element.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    <div class="traffic">
+      <h3>Traffic</h3>
+      <div class="traffic-item">Visitors: 3,456</div>
+      <div class="traffic-item">Today used: 10.9GB</div>
+      <div class="traffic-item">Total used: 64.1GB</div>
+      <canvas id="trafficChart"></canvas>
+    </div>
   </div>
 </div>
-</div>
-
