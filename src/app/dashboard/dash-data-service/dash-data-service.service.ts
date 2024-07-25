@@ -30,6 +30,18 @@ export class DashDataServiceService {
   getUserData(userId: string):Observable<any> {
     return this.http.get(`${this.API_URL}/fetchUserById/${userId}`);
   }
+  
+  gettabData():Observable<any> {
+    return this.http.get(`${this.API_URL}/liveTabs`);
+  }
+
+  deletetTab(tabData: any):Observable<any> {
+    return this.http.post(`${this.API_URL}/closeTab`, tabData);
+  }
+
+  liveTabs(tabData: any):Observable<any> {
+    return this.http.post(`${this.API_URL}/closeLiveTabs`, tabData);
+  }
 
   reportData(reportData: any):Observable<any> {
     return this.http.post(`${this.API_URL}/getReportData`, reportData);

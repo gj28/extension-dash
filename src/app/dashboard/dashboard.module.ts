@@ -50,8 +50,6 @@ import { AddDeviceComponent } from './settings/add-device/add-device.component';
 
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { PageLoadingComponent } from './dash-loading/page-loading/page-loading.component';
-import { AddJobsComponent } from './add-jobs/add-jobs.component';
-import { EditJobDialogComponent } from '../dashboard/edit-job/edit-job.component';
 import { EmailExtractorComponent } from './email-extractor/email-extractor.component';
 
 
@@ -74,11 +72,10 @@ import { EmailExtractorComponent } from './email-extractor/email-extractor.compo
     EditUserComponent,
     ProfileComponent,
     PageLoadingComponent,
-    AddJobsComponent,
-    EditJobDialogComponent,
     EmailExtractorComponent 
   ],
   imports: [
+    MatSlideToggleModule,
     CommonModule,
     DashboardRoutingModule,
     MatToolbarModule,

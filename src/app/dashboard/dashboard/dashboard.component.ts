@@ -1,86 +1,105 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DashService } from '../dash.service';
 import { DashDataServiceService } from '../dash-data-service/dash-data-service.service';
-import { AddJobsComponent } from '../add-jobs/add-jobs.component';
-import { EditJobDialogComponent } from '../edit-job/edit-job.component'; // Import the new dialog component
 import Swal from 'sweetalert2';
-import { Chart, registerables } from 'chart.js';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
-  loadStatus: number = 2;
-  cpuUsage: number = 0;
-  cpuCores: number = 1;
-  memoryUsage: number = 18.1;
-  memoryUsed: number = 178;
-  memoryTotal: number = 981;
-  diskUsage: number = 16;
-  diskUsed: number = 5.7;
-  diskTotal: number = 40;
-  siteCount: number = 0;
-  ftpCount: number = 0;
-  dbCount: number = 0;
-  securityIssues: number = 2;
+export class DashboardComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = ['url', 'actions'];
+  dataSource = new MatTableDataSource<TabData>(ELEMENT_DATA);
+  selectedApplicantId: any;
+  selectedStatus: string = ''; 
+  toggle: boolean = false;
 
-  constructor() { }
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator; 
+  data: any;
 
-  ngOnInit() {
-    this.createTrafficChart();
+  constructor(private dashDataService: DashDataServiceService, public dashService: DashService, public service: DashDataServiceService, public dialog: MatDialog, private http: HttpClient) {} 
+
+  ngOnInit() {  
+    this.dashService.isPageLoading(true);
+    this.getTabData();
   }
 
-  update() {
-    // Logic to update the data
-  }
-
-  reset() {
-    // Logic to reset the data
-  }
-
-  createTrafficChart() {
-    const ctx = document.getElementById('trafficChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['14:15:27', '14:15:30', '14:15:34', '14:15:38', '14:15:42', '14:15:46', '14:15:50'],
-        datasets: [{
-          label: 'Traffic',
-          data: [0.42, 0.32, 0.50, 0.20, 0.25, 0.44, 0.66],
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
-          }
+  handleToggleChange(event: any) {
+    this.toggle = event.checked;
+    console.log('Toggle changed to: ', this.toggle);
+    
+    if (this.toggle) {
+      const payload = { close: true };
+      this.dashDataService.liveTabs(payload).subscribe(
+        (response) => {
+          console.log('Response from liveTabs:', response);
+        },
+        (error) => {
+          console.error('Error from liveTabs:', error);
         }
+      );
+    }
+  }
+
+  deleteUser(url: string) {
+    if (url) {
+      const payload = { url };
+  
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.dashDataService.deletetTab(payload).subscribe(
+            () => {
+              Swal.fire('Deleted!', 'The website has been deleted.', 'success');
+              this.getTabData(); // Refresh the table after deletion
+            },
+            (error) => {
+              Swal.fire('Error!', 'Failed to delete the website. Please try again.', 'error');
+            }
+          );
+        }
+      });
+    }
+  }
+  
+  getTabData() {
+    this.service.gettabData().subscribe(
+      (response: { [key: string]: string }) => {
+        const tabData: TabData[] = Object.keys(response).map((key, index) => ({
+          id: (index + 1).toString(), // Generating sequential IDs starting from 1
+          url: response[key]
+        }));
+        this.dataSource.data = tabData;
+        this.dashService.isPageLoading(false);
+      },
+      (error) => {
+        console.error('Error fetching tab data', error);
+        this.dashService.isPageLoading(false);
       }
-    });
+    );
   }
 
-  getCircleStyle(value: number): string {
-    const color = value > 75 ? '#ff6b6b' : value > 50 ? '#ffa502' : '#2ed573';
-    return `conic-gradient(${color} ${value}%, #ddd ${value}%)`;
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 }
 
-
-export interface PeriodicElement {
-  id: number;
-  location: string;
-  role: string;
-  business_area: string;
-  created_at: string;
+export interface TabData {
+  url: string;
+  id: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [];
+const ELEMENT_DATA: TabData[] = [];
